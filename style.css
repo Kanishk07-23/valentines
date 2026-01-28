@@ -5,45 +5,45 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url("heart-bg.jpg");
+    /* Added to ensure background looks good on all screens */
+    background-size: cover;
+    background-position: center;
     font-family: "Pixelify Sans", sans-serif;
+    overflow: hidden; /* Prevents scrollbars if animations go slightly off-screen */
 }
 
 /* Envelope Screen */
 #envelope-container {
     text-align: center;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 @keyframes pulse {
-    0% {
-        transform:scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
-#envelope{
+#envelope {
     width: 200px;
     animation: pulse 1.5s infinite;
     cursor: pointer;
 }
 
-#letter-container{
+#letter-container {
     display: none;
-    position:fixed;
+    position: fixed;
     inset: 0;
     justify-content: center;
     align-items: center;
+    z-index: 10; /* Ensures letter appears above everything */
 }
 
-.letter-window{
+.letter-window {
     width: 90vw;
     max-width: 800px;
-    aspect-ratio: 3/2;
+    /* Aspect ratio works great for desktop, but we override it for mobile below */
+    aspect-ratio: 3/2; 
     padding: 20px 20px 0 20px;
     display: flex;
     flex-direction: column;
@@ -70,15 +70,16 @@ body {
 
 h1 {
     font-size: 30px;
-    margin:0;
+    margin: 0;
 }
 
 p {
     font-size: 40px;
+    color: #fff; /* Assuming white text contrasts better, adjust if needed */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Improves readability */
 }
 
 /* Cat */
-
 .cat {
     width: 250px;
     margin: 10px 0;
@@ -95,10 +96,11 @@ p {
     justify-content: center;
     gap: 30px;
     position: relative;
+    margin-top: 10px;
 }
 
-.no-wrapper{
-    position:relative;
+.no-wrapper {
+    position: relative;
 }
 
 .btn {
@@ -109,9 +111,9 @@ p {
 
 .yes-btn,
 .no-btn {
-width: 120px;
-height: auto;
-display: inline-block;
+    width: 120px;
+    height: auto;
+    display: inline-block;
 }
 
 .yes-btn {
@@ -128,12 +130,66 @@ display: inline-block;
     cursor: default;
 }
 
-.final-text{
+.final-text {
     font-size: 22px;
     line-height: 1.4;
     text-align: center;
     display: inline-block;
     padding: 10px 20px;
-    background-color: rgba(255,240,240,0.5);
+    background-color: rgba(255, 240, 240, 0.9); /* Increased opacity for readability */
     border-radius: 12px;
+    color: #333; /* Dark text for the note */
+    text-shadow: none;
+    margin-top: 10px;
+}
+
+/* --- RESPONSIVE DESIGN (MOBILE) --- */
+@media (max-width: 768px) {
+    /* Adjust text size for the envelope screen */
+    #envelope-container p {
+        font-size: 24px;
+        padding: 0 20px;
+    }
+
+    /* Adjust the window to fit vertical phone screens */
+    .letter-window {
+        width: 90vw;
+        max-width: 100%;
+        aspect-ratio: unset; /* Allow height to stretch naturally */
+        min-height: 60vh; /* Ensure it's tall enough */
+        
+        /* Adjust background to stretch instead of contain, 
+           so the window frame fits the taller mobile aspect ratio */
+        background-size: 100% 100%; 
+        
+        /* Reduce the massive top padding so content is visible */
+        padding-top: 80px; 
+        padding-bottom: 40px;
+    }
+
+    /* Smaller Title */
+    h1 {
+        font-size: 22px;
+        padding: 0 10px;
+    }
+
+    /* Smaller Cat */
+    .cat {
+        width: 160px;
+    }
+
+    /* Smaller buttons and gap */
+    .buttons {
+        gap: 15px;
+    }
+
+    .btn, .yes-btn, .no-btn {
+        width: 90px;
+    }
+
+    /* Adjust final text */
+    .final-text {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
 }
