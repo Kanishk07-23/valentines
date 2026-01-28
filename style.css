@@ -5,11 +5,10 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url("heart-bg.jpg");
-    /* Added to ensure background looks good on all screens */
     background-size: cover;
     background-position: center;
     font-family: "Pixelify Sans", sans-serif;
-    overflow: hidden; /* Prevents scrollbars if animations go slightly off-screen */
+    overflow: hidden;
 }
 
 /* Envelope Screen */
@@ -36,14 +35,13 @@ body {
     inset: 0;
     justify-content: center;
     align-items: center;
-    z-index: 10; /* Ensures letter appears above everything */
+    z-index: 10;
 }
 
 .letter-window {
     width: 90vw;
     max-width: 800px;
-    /* Aspect ratio works great for desktop, but we override it for mobile below */
-    aspect-ratio: 3/2; 
+    aspect-ratio: 3/2;
     padding: 20px 20px 0 20px;
     display: flex;
     flex-direction: column;
@@ -71,12 +69,13 @@ body {
 h1 {
     font-size: 30px;
     margin: 0;
+    transition: font-size 0.3s ease;
 }
 
 p {
     font-size: 40px;
-    color: #fff; /* Assuming white text contrasts better, adjust if needed */
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Improves readability */
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.664);
 }
 
 /* Cat */
@@ -86,11 +85,7 @@ p {
     transition: width 0.4s ease;
 }
 
-.letter-window.final .cat {
-    width: 180px;
-}
-
-/* buttons */
+/* Buttons */
 .buttons {
     display: flex;
     justify-content: center;
@@ -109,8 +104,7 @@ p {
     user-select: none;
 }
 
-.yes-btn,
-.no-btn {
+.yes-btn, .no-btn {
     width: 120px;
     height: auto;
     display: inline-block;
@@ -130,55 +124,79 @@ p {
     cursor: default;
 }
 
+/* --- FINAL STATE (After clicking Yes) --- */
+
+/* Make Yippee smaller */
+.letter-window.final h1 {
+    font-size: 30px; /* Much smaller title */
+    margin-top: 20px;
+}
+
+/* Make Cat smaller */
+.letter-window.final .cat {
+    width: 60px; /* Much smaller cat */
+    margin: 5px 0;
+}
+
+/* Custom Letter Box */
 .final-text {
-    font-size: 22px;
-    line-height: 1.4;
-    text-align: center;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgba(255, 240, 240, 0.9); /* Increased opacity for readability */
+    font-size: 16px;
+    line-height: 1.0;
+    text-align: left;/* Align left like a real letter */
+    width: 75%;       /* Constrain width */
+    max-height: 200px; /* Limit height */
+    overflow-y: auto;  /* Add scrollbar if letter is too long */
+    
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ffcccc;
     border-radius: 12px;
-    color: #333; /* Dark text for the note */
+    color: #333;
     text-shadow: none;
     margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Scrollbar styling for the letter */
+.final-text::-webkit-scrollbar {
+    width: 6px;
+}
+.final-text::-webkit-scrollbar-thumb {
+    background-color: #ff9999;
+    border-radius: 10px;
 }
 
 /* --- RESPONSIVE DESIGN (MOBILE) --- */
 @media (max-width: 768px) {
-    /* Adjust text size for the envelope screen */
     #envelope-container p {
         font-size: 24px;
         padding: 0 20px;
     }
 
-    /* Adjust the window to fit vertical phone screens */
     .letter-window {
         width: 90vw;
         max-width: 100%;
-        aspect-ratio: unset; /* Allow height to stretch naturally */
-        min-height: 60vh; /* Ensure it's tall enough */
-        
-        /* Adjust background to stretch instead of contain, 
-           so the window frame fits the taller mobile aspect ratio */
-        background-size: 100% 100%; 
-        
-        /* Reduce the massive top padding so content is visible */
-        padding-top: 80px; 
+        aspect-ratio: unset;
+        min-height: 60vh;
+        background-size: 100% 100%;
+        padding-top: 80px;
         padding-bottom: 40px;
     }
 
-    /* Smaller Title */
     h1 {
         font-size: 22px;
         padding: 0 10px;
     }
 
-    /* Smaller Cat */
     .cat {
         width: 160px;
     }
+    
+    /* Even smaller cat on mobile final state */
+    .letter-window.final .cat {
+        width: 80px; 
+    }
 
-    /* Smaller buttons and gap */
     .buttons {
         gap: 15px;
     }
@@ -187,9 +205,8 @@ p {
         width: 90px;
     }
 
-    /* Adjust final text */
     .final-text {
-        font-size: 16px;
-        padding: 8px 12px;
+        font-size: 14px; /* Slightly smaller text on mobile */
+        width: 85%;
     }
 }
